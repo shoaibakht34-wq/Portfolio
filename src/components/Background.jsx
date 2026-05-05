@@ -1,14 +1,25 @@
 
 export default function Background() {
   return (
-    <div className="absolute inset-0 -z-10 bg-primary overflow-hidden">
-      
-      <div className="absolute top-0 left-1/2 w-[600px] h-[600px]
-        bg-purple-600 opacity-40 blur-[150px] rounded-full -translate-x-1/2" />
-
-      <div className="w-full h-full 
-        bg-[radial-gradient(#ffffff22_1px,transparent_1px)] 
-        [background-size:25px_25px] opacity-20" />
-    </div>
+    <>
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)
+          `,
+          backgroundSize: "80px 80px",
+        }}
+      />
+    </>
   );
 }

@@ -1,9 +1,232 @@
+/* src/index.css */
 @import "tailwindcss";
 
-body {
+/* ROOT */
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+/* FULL PAGE */
+html,
+body,
+#root {
   margin: 0;
-  background: radial-gradient(circle at top, #1a103d, #050816 60%);
-  color: white;
-  font-family: sans-serif;
+  padding: 0;
+  min-height: 100%;
   overflow-x: hidden;
+
+  /* PREMIUM STRUCTURED BACKGROUND */
+  background:
+    radial-gradient(circle at top center, rgba(139, 92, 246, 0.22), transparent 32%),
+    radial-gradient(circle at 15% 30%, rgba(168, 85, 247, 0.12), transparent 25%),
+    radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.10), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.14), transparent 28%),
+    linear-gradient(
+      135deg,
+      #040612 0%,
+      #070b1d 22%,
+      #0a0f2a 42%,
+      #050816 68%,
+      #02030a 100%
+    );
+
+  color: white;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  background-attachment: fixed;
+}
+
+/* BODY */
+body {
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+
+  /* ✅ FIXED: SHOW NORMAL CURSOR */
+  cursor: auto;
+
+  position: relative;
+}
+
+/* STRUCTURE GRID OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -15;
+
+  /* RESTORED DOT + GRID STRUCTURE */
+  background-image:
+    radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+
+  background-size:
+    28px 28px,
+    70px 70px,
+    70px 70px;
+
+  mask-image: radial-gradient(circle at center, black 52%, transparent 96%);
+}
+
+/* LARGE ENERGY VIGNETTE */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -14;
+
+  background:
+    radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.45) 100%);
+}
+
+/* LINKS */
+a,
+button {
+  cursor: pointer;
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    rgba(139, 92, 246, 0.8),
+    rgba(168, 85, 247, 0.4)
+  );
+  border-radius: 999px;
+}
+
+/* PREMIUM TEXT */
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #d8b4fe,
+    #8b5cf6,
+    #ffffff
+  );
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* STARFIELD */
+.stars,
+.stars::before,
+.stars::after {
+  position: fixed;
+  inset: 0;
+  display: block;
+  content: "";
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.stars {
+  z-index: -13;
+
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.75), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(139,92,246,0.65), transparent),
+    radial-gradient(1.5px 1.5px at 90px 40px, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(192,132,252,0.55), transparent);
+
+  background-size: 220px 220px;
+
+  animation: starDrift 85s linear infinite;
+
+  opacity: 0.6;
+}
+
+.stars::before {
+  background-image:
+    radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.45), transparent),
+    radial-gradient(2px 2px at 150px 120px, rgba(139,92,246,0.35), transparent);
+
+  background-size: 300px 300px;
+
+  animation: starDriftReverse 120s linear infinite;
+
+  opacity: 0.35;
+}
+
+.stars::after {
+  background-image:
+    radial-gradient(1px 1px at 100px 150px, rgba(255,255,255,0.35), transparent),
+    radial-gradient(2px 2px at 200px 90px, rgba(168,85,247,0.3), transparent);
+
+  background-size: 380px 380px;
+
+  animation: starPulse 14s ease-in-out infinite;
+
+  opacity: 0.25;
+}
+
+/* GLASS CARDS */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* SELECTION */
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: white;
+}
+
+/* ANIMATIONS */
+@keyframes gradientShift {
+  0% {
+    background-position: 0%;
+  }
+  50% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: 0%;
+  }
+}
+
+@keyframes starDrift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-220px);
+  }
+}
+
+@keyframes starDriftReverse {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(220px);
+  }
+}
+
+@keyframes starPulse {
+  0%, 100% {
+    opacity: 0.18;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }

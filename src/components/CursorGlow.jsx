@@ -1,33 +1,35 @@
+// src/components/CursorGlow.jsx
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function CursorGlow() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: -100, y: -100 });
   const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
-    // Track mouse movement
-    const move = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    const moveCursor = (e) => {
+      setPosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
     };
 
-    window.addEventListener("mousemove", move);
+    window.addEventListener("mousemove", moveCursor);
 
-    // Detect hover on interactive elements
+    const interactiveElements = document.querySelectorAll("a, button");
+
     const handleEnter = () => setHovering(true);
     const handleLeave = () => setHovering(false);
 
-    const elements = document.querySelectorAll("a, button");
-
-    elements.forEach((el) => {
+    interactiveElements.forEach((el) => {
       el.addEventListener("mouseenter", handleEnter);
       el.addEventListener("mouseleave", handleLeave);
     });
 
     return () => {
-      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mousemove", moveCursor);
 
-      elements.forEach((el) => {
+      interactiveElements.forEach((el) => {
         el.removeEventListener("mouseenter", handleEnter);
         el.removeEventListener("mouseleave", handleLeave);
       });
@@ -36,23 +38,24 @@ export default function CursorGlow() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-40 h-40 pointer-events-none z-50"
+      className="fixed top-0 left-0 pointer-events-none z-[9999]"
       animate={{
-        x: position.x - 80,
-        y: position.y - 80,
+        x: position.x - 12,
+        y: position.y - 12,
       }}
       transition={{
         type: "spring",
-        stiffness: 120,
-        damping: 20,
+        stiffness: 300,
+        damping: 25,
       }}
     >
+      {/* SMALL SUBTLE GLOW ONLY */}
       <div
-        className={`w-full h-full rounded-full blur-3xl transition-all duration-300
+        className={`rounded-full transition-all duration-300
         ${
           hovering
-            ? "bg-purple-500 opacity-40 scale-125"
-            : "bg-purple-600 opacity-20 scale-100"
+            ? "w-8 h-8 bg-purple-500/25 blur-md"
+            : "w-6 h-6 bg-purple-500/15 blur-sm"
         }`}
       />
     </motion.div>
